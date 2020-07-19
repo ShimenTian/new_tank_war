@@ -14,6 +14,22 @@ public class Tank {
     private boolean moving = true;
     private Group group;
 
+    public Direction getDir() {
+        return dir;
+    }
+
+    public void setDir(Direction dir) {
+        this.dir = dir;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     public Tank(int x, int y, Direction dir, Group group) {
         this.x = x;
         this.y = y;

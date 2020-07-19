@@ -1,2 +1,4 @@
     #井号后面是注释，不会被读取
-    initTankCount = 5
+    initTankCount=5
+
+    tankFireStrategy=FourDirFireStrategy

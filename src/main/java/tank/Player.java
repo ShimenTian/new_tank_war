@@ -1,11 +1,16 @@
 package tank;
 
+import strategy.DefaultFireStrategy;
+import strategy.FireStrategy;
+import strategy.FourDirFireStrategy;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Player {
-    private int x, y;
     private static final int SPEED = 5;
+    ClassLoader loader = Player.class.getClassLoader();
+    private int x, y;
     private Direction dir;
     private boolean bL, bR, bU, bD;
     private  boolean live  = true;
@@ -16,6 +21,23 @@ public class Player {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
+        this.initFireStrategy();
+    }
+
+    public Direction getDir() {
+        return dir;
+    }
+
+    public void setDir(Direction dir) {
+        this.dir = dir;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
         this.group = group;
     }
 
@@ -137,9 +159,21 @@ public class Player {
         }
         setMainDir();
     }
+   private FireStrategy strategy = null;
+
+    private void initFireStrategy() {
+        String className = PropertyMgr.get("tankFireStrategy");
+        try {
+            Class clazz = loader.loadClass("strategy." + className);
+            strategy = (FireStrategy) (clazz.getDeclaredConstructor().newInstance());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void fire() {
-        TankFrame.INSTANCE.add(new Bullet(x, y, dir, group));
+        initFireStrategy();
+        strategy.fire(this);
     }
 
     private void setMainDir() {
