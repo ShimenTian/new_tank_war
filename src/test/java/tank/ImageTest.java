@@ -1,3 +1,5 @@
+package tank;
+
 import org.junit.jupiter.api.Test;
 import tank.ImageUtil;
 import tank.ResourceMgr;

@@ -76,11 +76,12 @@ public class TankFrame extends Frame {
         this.explodes.add(explode);
     }
     private void initGameObjects() {
+        int tankCount = Integer.parseInt(PropertyMgr.get("initTankCount"));
         myTank = new Player(50,50, Direction.R, Group.GOOD);
         enemyTanks = new ArrayList<>();
         bullets = new ArrayList<>();
         explodes = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < tankCount; i++) {
             enemyTanks.add(new Tank(100, 200, Direction.D, Group.BAD));
         }
     }
